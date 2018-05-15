@@ -1,3 +1,9 @@
+class AS {
+  static getNs() {
+    return "https://www.w3.org/ns/activitystreams#"
+  }
+}
+
 class LDP {
   static getNs() {
     return "http://www.w3.org/ns/ldp#";
@@ -34,6 +40,33 @@ class LDP {
   }
 }
 
+class PROV {
+  static getNs() {
+    return "http://www.w3.org/ns/prov#"
+  }
+  static get Activity() {
+    return this.getNs() + "Activity"
+  }
+  static get wasAssociatedWith() {
+    return this.getNs() + "wasAssociatedWith"
+  }
+  static get startedAtTime() {
+    return this.getNs() + "startedAtTime";
+  }
+  static get atTime() {
+    return this.getNs() + "atTime";
+  }
+}
+
+class RDF {
+  static getNs() {
+    return "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+  }
+  static get type() {
+    return this.getNs() + "type";
+  }
+}
+
 class Trellis {
   static getNs() {
     return "http://www.trellisldp.org/ns/trellis#";
@@ -43,4 +76,4 @@ class Trellis {
   }
 }
 
-export { LDP, Trellis }
+export { AS, LDP, PROV, RDF, Trellis }

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "ajv": "^6.5.0",
+    "history": "^4.7.2",
     "n3": "^1.0.0-beta.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -18,5 +19,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "http://localhost/trellis"
+  "homepage": "http://localhost/trellis",
+  "devDependencies": {}
 }

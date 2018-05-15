@@ -3,9 +3,9 @@ import logo from '../assets/logo.svg';
 import Config from '../Config';
 
 const Header = ({identifier = ''}) => (
-  <header className="App-header">
-    <img src={logo} className="App-logo" alt="logo" />
-    <h1 className="App-title">{Config.BASE_URL}{identifier}</h1>
+  <header className="LdpApp-header">
+    <img src={logo} className="LdpApp-logo" alt="logo" />
+    <h1 className="LdpApp-title">{Config.BASE_URL}{identifier}</h1>
   </header>
 )
 

@@ -1,0 +1,47 @@
+.LdpApp {
+  text-align: center;
+}
+
+.LdpApp-logo {
+  animation: LdpApp-logo-spin infinite 20s linear;
+  height: 30px;
+}
+
+.LdpApp-header {
+  background-color: #222;
+  height: 80px;
+  padding: 20px;
+  color: white;
+}
+
+.LdpApp-title {
+  font-size: 1.5em;
+}
+
+.LdpApp-intro {
+  font-size: large;
+}
+
+@keyframes LdpApp-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.NavForm-input {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.NavForm-input input {
+    margin: 0 5px;
+}
+
+.meta {
+    height: 100%;
+    width: 180px;
+    float:left;
+}
+
+article {
+    margin-left: 180px;
+}
