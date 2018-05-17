@@ -7,8 +7,21 @@ import './assets/index.css';
 import LdpApp from './components/LdpApp';
 import registerServiceWorker from './registerServiceWorker';
 
+// The submit action type
+const SUBMITTED = "@@redux-form/SET_SUBMIT_SUCCEEDED";
+
 const store = createStore(combineReducers({
-  form: formReducer
+  form: formReducer.plugin({
+    resource: (state, action) => {
+      switch(action.type) {
+        // Reset the form
+        case SUBMITTED:
+          return undefined;
+        default:
+          return state
+      }
+    }
+  })
 }));
 
 render(

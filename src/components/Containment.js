@@ -2,7 +2,7 @@ import React from 'react';
 import Config from '../Config';
 
 const Containment = ({children = [], onClick}) => (
-  <section id="ldpContainment">
+  <section className="ldpList">
     { children.length > 0 && <h2>Child Resources</h2> }
     <ul>
       { children.map((child, idx) => (

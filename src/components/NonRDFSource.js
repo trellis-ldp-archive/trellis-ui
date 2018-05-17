@@ -10,9 +10,14 @@ const renderResource = (identifier = '', contentType = '', content) => {
   if (isImage(contentType)) {
     return (<img alt={identifier} src={url}/>)
   } else if (isText(contentType)) {
-    return (<pre>{content}</pre>)
+    return (
+      <div>
+        { content && <h2>Resource Content</h2> }
+        <pre>{content}</pre>
+      </div>
+    )
   } else {
-    return (<p>Something else</p>)
+    return (<p>{contentType} is not displayed</p>)
   }
 }
 

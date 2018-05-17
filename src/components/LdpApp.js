@@ -12,6 +12,7 @@ import Audit from './Audit'
 import Containment from './Containment'
 import Membership from './Membership'
 import NonRDFSource from './NonRDFSource'
+import Alerts from './Alerts'
 import { LDP } from '../utils/Vocab'
 
 class App extends Component {
@@ -66,7 +67,8 @@ class App extends Component {
       if (headers.err) {
         this.setState(() => state);
       } else {
-        Promise.all([client.fetchResource(),
+        Promise.all([
+          client.fetchResource(),
           client.fetchAudit(),
           client.fetchMembership(),
           client.fetchContainment(),
@@ -106,19 +108,14 @@ class App extends Component {
     if (!id && e && e.currentTarget) {
       id = e.currentTarget.textContent
     }
-    if (!id) {
-      id = '';
-    }
-    this.history.push('/', { id: id });
-    //this.loadResource({identifier: id});
+    this.history.push('/', { id: id || '' });
   }
 
   /**
    * Handle a submit event.
    */
   handleSubmit(values = {}) {
-    this.history.push('/', {id: values.id || ''});
-    this.loadResource(values);
+    this.history.push('/', {id: values.identifier || ''});
   }
 
   /**
@@ -135,17 +132,18 @@ class App extends Component {
     return (
       <div className="LdpApp">
         <Header identifier={this.state.identifier}/>
-        <NavigationForm onSubmit={this.handleSubmit}/>
+        <NavigationForm onSubmit={this.handleSubmit} onClick={this.resourceClick}/>
+        <Alerts alert={this.state.err}/>
         <div className="meta">
           <LdpType types={this.state.types}/>
           <Versions versions={this.state.mementos} identifier={this.state.identifier} onClick={this.resourceClick}/>
           <Audit data={this.state.audit}/>
+          <Containment children={this.state.children} onClick={this.resourceClick}/>
         </div>
         <article>
-          <Resource data={this.state.resource} err={this.state.err}/>
+          <Resource data={this.state.resource}/>
           <NonRDFSource identifier={this.state.identifier} content={this.state.content} contentType={this.state.contentType}/>
           <Membership members={this.state.members} onClick={this.resourceClick}/>
-          <Containment children={this.state.children} onClick={this.resourceClick}/>
         </article>
       </div>
     );

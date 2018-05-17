@@ -7,14 +7,15 @@
   height: 30px;
 }
 
-.LdpApp-header {
+header {
   background-color: #222;
-  height: 80px;
+  height: 50px;
   padding: 20px;
   color: white;
 }
 
 .LdpApp-title {
+    padding-top: 10px;
   font-size: 1.5em;
 }
 
@@ -27,25 +28,72 @@
   to { transform: rotate(360deg); }
 }
 
-.NavForm-input {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-.NavForm-input input {
-    margin: 0 5px;
-}
+
 
 .meta {
     height: 100%;
-    width: 180px;
+    width: 40%;
     float:left;
 }
 
 article {
-    margin-left: 180px;
+    margin-left: 40%;
 }
 
 article img {
     max-width: 90%;
+}
+
+.ldpList ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.ldpList li {
+    cursor: pointer;
+    padding: 5px 0;
+}
+.ldpList li:hover {
+    text-decoration: underline;
+    background-color: #e0ffff;
+}
+
+nav {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+nav input {
+    margin: 0 5px;
+}
+nav form {
+    display: inline-block;
+}
+
+nav i {
+    cursor: pointer;
+    margin-right: 10px;
+}
+nav i:hover {
+    color: rgba(255,255,255, 0.5);
+}
+nav .fa,
+header .fa {
+    color: rgba(255, 255, 255, 1.0);
+}
+
+header a {
+    color: rgba(255, 255, 255, 1.0);
+    text-decoration: none;
+}
+header a:hover {
+    text-decoration: underline;
+}
+header i {
+    margin: 0 10px;
+
+}
+header img {
+    position: absolute;
+    left: 10px;
+    top: 10px;
 }

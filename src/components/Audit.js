@@ -1,19 +1,14 @@
 import React from 'react'
 import { AS } from '../utils/Vocab'
 
-const Audit = ({data = []}) => {
-  const titles = data.map(evt =>
-    `${evt.event.replace(AS.getNs(), "")} by ${evt.agent} on ${evt.date}`)
-
-  return (
-    <section id="ldpAudit">
-      { data.length > 0 && <h2>Audit</h2> }
-      <ul>
-        { data.map((evt, idx) => (
-          <li key={idx} title={titles[idx]}>{evt.event.replace(AS.getNs(), '')}</li>))}
-      </ul>
-    </section>
-  )
-}
+const Audit = ({data = []}) => (
+  <section className="ldpList">
+    { data.length > 0 && <h2>Audit Log</h2> }
+    <ul>
+      { data.map((evt, idx) => (
+        <li key={idx} title={"Agent: " + evt.agent}>{evt.event.replace(AS.getNs(), '')} on {new Date(evt.date).toLocaleString()}</li>))}
+    </ul>
+  </section>
+)
 
 export default Audit
