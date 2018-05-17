@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { AS } from '../utils/Vocab'
 
 const Audit = ({data = []}) => {

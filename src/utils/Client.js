@@ -13,7 +13,8 @@ class Client {
     const res = await fetch(url || this.url, {method: 'HEAD'});
     const data = {
       types: Link.parse(res.headers.get("Link")).filter(l => l.rel === "type").map(l => l.uri),
-      mementos: Link.parse(res.headers.get("Link")).filter(l => l.rel === "memento")
+      mementos: Link.parse(res.headers.get("Link")).filter(l => l.rel === "memento"),
+      contentType: res.headers.get("Content-Type")
     }
     if (!res.ok) {
       data.err = res.statusText
@@ -24,6 +25,10 @@ class Client {
   async fetchQuads(url, headers) {
     const rdf = await fetch(url || this.url, { headers: headers }).then(res => res.text()).catch(err => '');
     return rdf.length > 0 ? new Parser().parse(rdf) : [];
+  }
+
+  async fetchContent(url) {
+    return await fetch(url || this.url).then(res => res.text()).catch(err => '');
   }
 
   async serializeQuads(quads = []) {
@@ -69,6 +74,15 @@ class Client {
       accept: "text/turtle",
       prefer: Prefer.representation(Trellis.PreferContainment, [LDP.PreferMinimalContainer, LDP.PreferMembership])
     }).then(quads => quads.map(q => q.object.value));
+  }
+
+  static parseContentType(contentType = '') {
+    const mediaType = contentType.split(';')[0];
+    const [type = '', subType = ''] = mediaType.split('/', 2);
+    return {
+      type: type.trim(),
+      subType: subType.trim()
+    };
   }
 }
 

@@ -45,3 +45,7 @@
 article {
     margin-left: 180px;
 }
+
+article img {
+    max-width: 90%;
+}

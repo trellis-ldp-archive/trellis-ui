@@ -11,6 +11,8 @@ import Versions from './Versions'
 import Audit from './Audit'
 import Containment from './Containment'
 import Membership from './Membership'
+import NonRDFSource from './NonRDFSource'
+import { LDP } from '../utils/Vocab'
 
 class App extends Component {
 
@@ -19,13 +21,16 @@ class App extends Component {
 
     // Define state
     this.state = {
+      identifier: '',
+      err: '',
       types: [],
+      mementos: [],
+      contentType: '',
       children: [],
       members: [],
       audit: [],
-      identifier: '',
-      err: '',
-      resource: ''
+      resource: '',
+      content: ''
     }
 
     // Function bindings
@@ -51,24 +56,39 @@ class App extends Component {
         err: headers.err,
         types: headers.types,
         mementos: headers.mementos,
+        contentType: headers.contentType,
         children: [],
         members: [],
+        audit: [],
         resource: '',
-        audit: []
+        content: ''
       };
       if (headers.err) {
         this.setState(() => state);
       } else {
-        Promise.all([client.fetchResource(), client.fetchAudit(), client.fetchMembership(), client.fetchContainment()])
-          .then(([resource, audit, membership, containment]) => {
+        Promise.all([client.fetchResource(),
+          client.fetchAudit(),
+          client.fetchMembership(),
+          client.fetchContainment(),
+          this.shouldGetRemote(headers) ? client.fetchContent() : ''])
+          .then(([resource, audit, membership, containment, content]) => {
              state.resource = resource;
              state.audit = audit;
              state.children = containment;
              state.members = membership;
+             state.content = content;
              this.setState(() => state)
            });
       }
     });
+  }
+
+  /**
+   * Determine if the remote content should be fetched directly.
+   */
+  shouldGetRemote({types = [], contentType = ''}) {
+    return types.includes(LDP.NonRDFSource)
+      && Client.parseContentType(contentType).type === "text"
   }
 
   /**
@@ -90,7 +110,7 @@ class App extends Component {
       id = '';
     }
     this.history.push('/', { id: id });
-    this.loadResource({identifier: id});
+    //this.loadResource({identifier: id});
   }
 
   /**
@@ -123,6 +143,7 @@ class App extends Component {
         </div>
         <article>
           <Resource data={this.state.resource} err={this.state.err}/>
+          <NonRDFSource identifier={this.state.identifier} content={this.state.content} contentType={this.state.contentType}/>
           <Membership members={this.state.members} onClick={this.resourceClick}/>
           <Containment children={this.state.children} onClick={this.resourceClick}/>
         </article>
