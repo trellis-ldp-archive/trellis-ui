@@ -14,6 +14,7 @@ class Client {
     const data = {
       types: Link.parse(res.headers.get("Link")).filter(l => l.rel === "type").map(l => l.uri),
       mementos: Link.parse(res.headers.get("Link")).filter(l => l.rel === "memento"),
+      description: Link.parse(res.headers.get("Link")).filter(l => l.rel === "describedby").map(l => l.uri)[0],
       contentType: res.headers.get("Content-Type")
     }
     if (!res.ok) {

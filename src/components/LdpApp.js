@@ -68,10 +68,10 @@ class App extends Component {
         this.setState(() => state);
       } else {
         Promise.all([
-          client.fetchResource(),
-          client.fetchAudit(),
-          client.fetchMembership(),
-          client.fetchContainment(),
+          client.fetchResource(headers.description),
+          client.fetchAudit(headers.description),
+          client.fetchMembership(headers.description),
+          client.fetchContainment(headers.description),
           this.shouldGetRemote(headers) ? client.fetchContent() : ''])
           .then(([resource, audit, membership, containment, content]) => {
              state.resource = resource;
