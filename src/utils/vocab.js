@@ -76,4 +76,5 @@ class Trellis {
   }
 }
 
+
 export { AS, LDP, PROV, RDF, Trellis }
