@@ -16,7 +16,7 @@ const renderResource = (identifier = '', contentType = '', content) => {
         <pre>{content}</pre>
       </div>
     )
-  } else {
+  } else if (contentType) {
     return (<p>{contentType} is not displayed</p>)
   }
 }

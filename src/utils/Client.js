@@ -10,7 +10,7 @@ class Client {
   }
 
   async fetchHead(url) {
-    const res = await fetch(url || this.url, {method: 'HEAD'});
+    const res = await fetch(url || this.url, {method: 'HEAD', cache: 'no-store'});
     const data = {
       types: Link.parse(res.headers.get("Link")).filter(l => l.rel === "type").map(l => l.uri),
       mementos: Link.parse(res.headers.get("Link")).filter(l => l.rel === "memento"),
