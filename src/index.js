@@ -1,11 +1,11 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
 import { createStore, combineReducers } from 'redux'
 import { reducer as formReducer, actionTypes } from 'redux-form'
-import './assets/index.css';
-import LdpApp from './components/LdpApp';
-import registerServiceWorker from './registerServiceWorker';
+import './assets/index.css'
+import LdpApp from './components/LdpApp'
+import registerServiceWorker from './registerServiceWorker'
 
 const store = createStore(combineReducers({
   form: formReducer.plugin({
@@ -17,5 +17,5 @@ const store = createStore(combineReducers({
 render(
   <Provider store={store}>
     <LdpApp />
-  </Provider>, document.getElementById('root'));
+  </Provider>, document.getElementById('app-root'));
 registerServiceWorker();

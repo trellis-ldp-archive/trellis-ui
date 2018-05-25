@@ -23,6 +23,43 @@ class Client {
     return data;
   }
 
+  async updateResource(url, content, contentType = 'application/sparql-update') {
+    return await fetch(url || this.url, {
+      method: "PATCH",
+      headers: { "content-type": contentType },
+      body: content
+    });
+  }
+
+  async replaceResource(url, content, contentType = 'text/turtle') {
+    return await fetch(url || this.url, {
+      method: "PUT",
+      headers: { "content-type": contentType },
+      body: content
+    });
+  }
+
+  async createResource(url, content, ldpType, slug, contentType = 'text/turtle') {
+    const headers = {
+      "content-type": contentType
+    }
+    if (ldpType) {
+      headers.link = "<" + ldpType + ">; rel=\"type\"";
+    }
+    if (slug && slug.length > 0) {
+      headers.slug = slug;
+    }
+    return await fetch(url || this.url, {
+      method: "POST",
+      headers: headers,
+      body: content
+    });
+  }
+
+  async deleteResource(url) {
+    return await fetch(url || this.url, { method: "DELETE" });
+  }
+
   async fetchQuads(url, headers) {
     const rdf = await fetch(url || this.url, { headers: headers }).then(res => res.text()).catch(err => '');
     return rdf.length > 0 ? new Parser().parse(rdf) : [];

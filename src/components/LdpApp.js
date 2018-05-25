@@ -13,6 +13,8 @@ import Containment from './Containment'
 import Membership from './Membership'
 import NonRDFSource from './NonRDFSource'
 import Alerts from './Alerts'
+import Modal from './Modal'
+import Editor from './Editor'
 import { LDP } from '../utils/Vocab'
 
 class App extends Component {
@@ -36,8 +38,10 @@ class App extends Component {
 
     // Function bindings
     this.resourceClick = this.resourceClick.bind(this);
+    this.modifyClick = this.modifyClick.bind(this);
     this.handleNavigation = this.handleNavigation.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
 
     // Set up history
     this.history = createBrowserHistory();
@@ -111,11 +115,31 @@ class App extends Component {
     this.history.push('/', { id: id || '' });
   }
 
+  modifyClick(method) {
+    const modal = document.getElementById('modal-root');
+    modal.style.display = 'block';
+    this.setState(() => ({
+      action: method
+    }));
+    window.onclick = (evt) => {
+      if (evt.target.classList.contains('modal')) {
+        modal.style.display = "none";
+      }
+    }
+  }
+
   /**
    * Handle a submit event.
    */
   handleSubmit(values = {}) {
     this.history.push('/', {id: values.identifier || ''});
+  }
+
+  /**
+   * Handle an edit event.
+   */
+  handleEdit(id = '') {
+    this.loadResource({identifier: id});
   }
 
   /**
@@ -141,10 +165,13 @@ class App extends Component {
           <Containment children={this.state.children} onClick={this.resourceClick}/>
         </div>
         <article>
-          <Resource data={this.state.resource}/>
+          <Resource data={this.state.resource} types={this.state.types} onClick={this.modifyClick}/>
           <NonRDFSource identifier={this.state.identifier} content={this.state.content} contentType={this.state.contentType}/>
           <Membership members={this.state.members} onClick={this.resourceClick}/>
         </article>
+        <Modal>
+          <Editor identifier={this.state.identifier} action={this.state.action} types={this.state.types} onSubmit={this.handleEdit}/>
+        </Modal>
       </div>
     );
   }

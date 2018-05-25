@@ -12,7 +12,11 @@ class Link {
   }
 
   static parse(headers) {
-    return headers.split(/,(?=\s*<)/).map(x => new Link(x));
+    if (headers) {
+      return headers.split(/,(?=\s*<)/).map(x => new Link(x));
+    } else {
+      return [];
+    }
   }
 }
 
