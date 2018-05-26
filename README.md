@@ -2,7 +2,7 @@
 
 A web-based user interface for TrellisLDP servers.
 
-** This project is experimental and not yet fully functional **
+**This project is experimental and not yet fully functional**
 
 This code requires at least Trellis 0.7 in order to run.
 
