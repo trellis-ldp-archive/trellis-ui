@@ -109,8 +109,8 @@ class App extends Component {
    */
   resourceClick(e, override) {
     let id = override
-    if (!id && e && e.currentTarget) {
-      id = e.currentTarget.textContent
+    if (!id && e && e.target) {
+      id = e.target.textContent
     }
     this.history.push('/', { id: id || '' });
   }
@@ -131,8 +131,8 @@ class App extends Component {
   /**
    * Handle a submit event.
    */
-  handleSubmit(values = {}) {
-    this.history.push('/', {id: values.identifier || ''});
+  handleSubmit(identifier = '') {
+    this.history.push('/', {id: identifier });
   }
 
   /**
@@ -156,7 +156,7 @@ class App extends Component {
     return (
       <div className="LdpApp">
         <Header identifier={this.state.identifier}/>
-        <NavigationForm onSubmit={this.handleSubmit} onClick={this.resourceClick}/>
+        <NavigationForm onSubmit={this.handleSubmit}/>
         <Alerts alert={this.state.err}/>
         <div className="meta">
           <LdpType types={this.state.types}/>
